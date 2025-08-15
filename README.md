@@ -9,4 +9,5 @@ surrogate measure of the drivers of damage initation and $\alpha$ is a 10-dimens
 >> Code usage order: train.py $->$ inference.py $->$ class_assignment.py $->$ eval.py
 
 Good luck!
+
 Contact: jhur64@gatech.edu 
