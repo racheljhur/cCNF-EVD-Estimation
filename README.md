@@ -6,7 +6,7 @@ values of maximum principal stress.
 The continuous normalizing flow estimates $p(\beta|\alpha), \beta \in R, \alpha \in R^{10}$, where $\beta$ is the extreme value parameter serving as a local
 surrogate measure of the drivers of damage initation and $\alpha$ is a 10-dimensional vector of PC scores approximating the features of a microstructural volume.
 
->> Code usage order: train.py $->$ inference.py $->$ class_assignment.py $->$ eval.py
+>> Code usage order: train.py > inference.py > class_assignment.py > eval.py
 
 Good luck!
 
