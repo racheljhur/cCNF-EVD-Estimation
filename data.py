@@ -57,7 +57,7 @@ print('reshaped dataset shapes:')
 print(EVs.shape)
 print(PCs.shape)
 
-# normalize
+# standardize
 input_scaler = StandardScaler()
 PCs_scaled = input_scaler.fit_transform(PCs)
 PCs_no_rep_scaled = input_scaler.fit_transform(PCs_no_repeat)[:,:10]
