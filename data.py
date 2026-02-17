@@ -75,12 +75,12 @@ data_std_evs = torch.tensor(output_scaler.scale_, dtype=torch.float32).to(device
 data_mean_evs_np = data_mean_evs.cpu().numpy()
 data_std_evs_np = data_std_evs.cpu().numpy()
 
-# unnormalization functions
-def unnormalize_x(x):
+# unscaling functions
+def unstandardize_x(x):
     '''go from normaized data x back to the original range'''
     return x * data_std_evs_np + data_mean_evs_np
 
-def unnormalize_y(y):
+def unstandardize_y(y):
     '''go from normaized data y back to the original range'''
     return y * data_y_std + data_y_mean
 
@@ -93,9 +93,9 @@ test_indices = np.concatenate([np.arange(start, end + 1) for cls in test_classes
 
 # test_labels = []
 # Include this in the class assignment script.
-# for cls in test_classes:
-#     start, end = ranges_dict[cls]
-#     test_labels.extend([cls] * (end - start + 1))  # repeat the label for the index range
+# for test_class in test_classes:
+#     start, end = ranges_dict[test_class]
+#     test_labels.extend([test_class] * (end - start + 1))  # repeat the label for the index range
 # test_labels = np.array(test_labels)
 
 # Set the remaining 3 RVEs to be the test set
