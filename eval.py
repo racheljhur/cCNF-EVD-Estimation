@@ -47,10 +47,12 @@ for i, p in enumerate(select_patterns):
     std=train_gr_truth.std()
 
     # This is mainly to interpret our 1-W distance (>2 is likely not good)
-    train_gr_truth_norm=(train_gr_truth-mean)/std
-    train_samples_norm=(train_samples-mean)/std
+    # I didn't end up using this because it makes no sense for wasserstein distance (this is usually done for means)
+    #
+    #train_gr_truth_norm=(train_gr_truth-mean)/std
+    #train_samples_norm=(train_samples-mean)/std
 
-    W1_dist = wasserstein_distance(train_gr_truth_norm, train_samples_norm)
+    W1_dist = wasserstein_distance(train_gr_truth, train_samples)
 
     ax.hist(train_gr_truth, density=True, bins=20, alpha=0.5, label='Ground Truth', color='blue')
     ax.hist(train_samples, density=True, bins=20, alpha=0.5, label='cCNF Samples', color='orange')
@@ -82,10 +84,10 @@ for p in patterns:
     std=train_gr_truth.std()
 
     # This is mainly to interpret our 1-W distance (>2 is likely not good)
-    train_gr_truth_norm=(train_gr_truth-mean)/std
-    train_samples_norm=(train_samples-mean)/std
+    #train_gr_truth_norm=(train_gr_truth-mean)/std
+    #train_samples_norm=(train_samples-mean)/std
 
-    W1_dist = wasserstein_distance(train_gr_truth_norm, train_samples_norm)
+    W1_dist = wasserstein_distance(train_gr_truth, train_samples)
     W1_dist_train.append(W1_dist)
 
 W1_dist_train=np.array(W1_dist_train)
