@@ -30,7 +30,7 @@ test_samples = pk.load(open(data_dir+'test_samples.pkl','rb'))
 
 #--- TRAIN HISTORGRAMS ---#
 # **to visualize select classes, since I have like 15 classes...
-# make sure you unnormalize samples before plotting
+# make sure you unstandardize samples before plotting
 
 select_patterns=['F30', 'FAAA37', 'FCCC50']
 fig, axes = plt.subplots(1,3,figsize=(12, 4))
