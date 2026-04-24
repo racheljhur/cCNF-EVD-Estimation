@@ -1,4 +1,4 @@
-''' RVE Assignment Script '''
+"""RVE assignment"""
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -9,20 +9,20 @@ from datetime import date
 import pickle as pk
 import os
 
-'''
+"""
 When approximating an RVE by an ensemble of SVEs, you must group them by similar
 target spatial statistics. Each SVE descriptor and its corresponding extreme response
-in my training dataset has been randomly shuffled. We need to identify which RVE each
+in my training dataset has been randomly shuffled. So, we need to identify which RVE each
 SVE belongs to s.t. we can correctly assess the model's performance on performance
 characterization per RVE.
 
 Accordingly, this script attempts to match numerical PC vectors in my shuffled training set to
 the numerical values in the original PC dataset, whose rows are tied to RVE labels by a dictionary
 in the data.py script.
-'''
+"""
 
 d = date.today().isoformat()
-version='0'
+version="0"
 
 torch.cuda.empty_cache()
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -65,13 +65,14 @@ for patt, (start, end) in patterns_dict.items():
 
 # Write results
 out_dir='../../data/pc_scores/'
-with open(out_dir +'pc_scores_labeled_dictionary.pkl', 'wb') as f:
-    pickle.dump(pc_scores_labeled, f)
 
-'''
-The idea is that I will be using the numerical values from the unshuffled, labeled dataset
-and the numerical values from the shuffled, unlabeled dataset to get the shuffled RVE labels.
-'''
+with open(out_dir +'pc_scores_labeled_dictionary.pkl', 'wb') as f:
+    pk.dump(pc_scores_labeled, f)
+
+"""
+The idea is that I will match the numerical values from the unshuffled, labeled dataset
+to the values from the shuffled, unlabeled dataset to get RVE labels. Floats hardly share the same value twice.
+"""
 
 # Load in all shuffled datasets
 data_dir_train=f'training_out/{d}/{version}/'
@@ -95,8 +96,8 @@ pc_scores_shuffled = pc_scores_shuffled[-n_training:]
 # Dataset which will store [row, column, class]
 matching_indices = np.empty((len(pc_scores_shuffled), 2), dtype=int)
 
-'''
-This is what the following code snippet does. 
+"""
+This is what the following code block does. 
 For a given pattern, it checks all the rows and corresponding value in pc_scores_labeled[patt],
 and checks if there is a match in pcs_shuffled_train. If there is, it marks the row in the shuffled
 dataset and assigns it the pattern. It does this for all patterns until there is a match.
@@ -104,7 +105,7 @@ dataset and assigns it the pattern. It does this for all patterns until there is
 The rows EVs train and train_samples will be marked accordingly, since they are shuffled in the same manner
 as pcs_shuffled_train. Note that there is a random_seed in place for the test/train split, but this is not
 the case for shuffle=True in the training dataloader.
-'''
+"""
 
 # Prepare dictionaries for assignment
 pcs_shuffled_train = {patt: [] for patt in pc_scores_labeled.keys()}
@@ -139,8 +140,7 @@ pcs_shuffled_train = {k: np.array(v) for k, v in pcs_shuffled_train.items()}
 EVs_train = {k: np.array(v) for k, v in EVs_train.items()}
 train_samples = {k: np.array(v) for k, v in train_samples.items()}
 
-# Repeat class assignment for test labels (since I performed a random 80/20 split, 
-# I don't know what my test labels are, even if it isn't randomly shuffled)
+# Repeat class assignment for test labels (if needed)
 
 pcs_shuffled_test = {patt: [] for patt in pc_scores_labeled.keys()}
 EVs_test = {patt: [] for patt in pc_scores_labeled.keys()}
@@ -193,3 +193,8 @@ pk.dump(pca, open(out_dir+'test_samples.pkl','wb'))
 # Now, pcs_shuffled_{dataset}, EVs_{dataset}, and {dataset}_samples, where dataset = train/test
 # are all dictionaries, and you can easily assess model performance per class
 # by accessing class labels.
+
+# To the lucky person who uses this code, 
+# When I was initially setting up my experiments, I wrote this
+# with the help of my buddy chatgpt. As a result, some of this logic may seem illogical. I am writing something
+# myself that is simpler but am releasing this for now. Please let me know if you run into a bug.
