@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-PCs = np.load('raw_data/3000_pc_scores.npy')
-EVs = np.load('raw_data/EVs_3000.npy')
+PCs = np.load("data/pc_scores.npy")
+EVs = np.load("data/responses.npy")
 
 # renaming because I need the unprocessed datasets later
 gr_truth = EVs
