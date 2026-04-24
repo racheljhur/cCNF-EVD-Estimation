@@ -196,5 +196,5 @@ pk.dump(pca, open(out_dir+'test_samples.pkl','wb'))
 
 # To the lucky person who uses this code, 
 # When I was initially setting up my experiments, I wrote this
-# with the help of my buddy chatgpt. As a result, some of this logic may seem illogical. I am writing something
+# with chatgpt. As a result, some of this logic may seem illogical. I am writing something
 # myself that is simpler but am releasing this for now. Please let me know if you run into a bug.
