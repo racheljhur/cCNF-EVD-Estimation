@@ -24,7 +24,6 @@ cdim=10
 torch.cuda.empty_cache()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-flow = zuko.flows.continuous.CNF(features=dim, context=cdim, hidden_features=(64, 128, 256))
 flow.to(device)
 
 optimizer = torch.optim.Adam(flow.parameters(), lr=1e-3, weight_decay=1e-5)
@@ -82,6 +81,6 @@ print("Finished writing results.")
 Training log
 -------------------------------------------------------------------------------------------------------
 Final configuration used in the paper:
-08/15/2025 (0): CNF, (64,128,256), batch=8192, weight_decay=1e-5, lr=1e-3, n_iters=300, shuffle=true
+08/15/2025 (0): continuous normalizing flow, (64,128,256), batch=8192, weight_decay=1e-5, lr=1e-3, n_iters=300, shuffle=true
 -------------------------------------------------------------------------------------------------------
 """
