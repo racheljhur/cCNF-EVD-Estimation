@@ -24,6 +24,7 @@ cdim=10
 torch.cuda.empty_cache()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+flow = zuko.flows.continuous.CNF(features=dim, context=cdim, hidden_features=(64, 128, 256))
 flow.to(device)
 
 optimizer = torch.optim.Adam(flow.parameters(), lr=1e-3, weight_decay=1e-5)
